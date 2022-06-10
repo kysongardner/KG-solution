@@ -69,11 +69,11 @@ class Validator
          sub_group << n_row if i == 2 && n_i == 1
          sub_group << n_row if i == 2 && n_i == 2
          sub_group_rows << sub_group
+         raise [sub_group_rows, sub_group].inspect
          sub_group = []
       end
     end
 
-    raise [sub_group_rows, sub_group].inspect
 
     sub_group_rows.each do |sub_group|
       @sub_group_valid = check_subgroup_for_validity(sub_group)
