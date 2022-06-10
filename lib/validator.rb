@@ -32,13 +32,13 @@ class Validator
     # See if it's incomplete
     new_rows.each do |row| 
       @incomplete = check_row_for_incompleteness(row)
-      next if @incomplete == true
+      break if @incomplete == true
     end
 
     # Go through each row and check that it's valid
     new_rows.each do |row|
       @row_valid = check_row_for_validity(row)
-      next if @row_valid == false
+      break if @row_valid == false
     end
 
     # Transpose 'new_rows' array of arrays so columns become rows so to speak
@@ -48,7 +48,7 @@ class Validator
     # 'check_column_for_validity' method for clarity purposes when testing 'column' validity.)
     columns.each do |column|
       @column_valid = check_column_for_validity(column)
-      next if @column_valid == false
+      break if @column_valid == false
     end
 
     # This was a "start" to testing the subgroups. There is an algorithmic way to go about this obviously.
@@ -70,6 +70,7 @@ class Validator
       end
     end
 
+    # Determine message to send back to test
     if @row_valid == false || @column_valid == false
       message = 'This sudoku is invalid.'
     elsif @row_valid == true && @column_valid == true && @incomplete == true
@@ -80,26 +81,26 @@ class Validator
 
     message
   end
+  def check_row_for_validity(row)
+    row = remove_zeros_from_check(row)
+    value = row == row.uniq
+  end
+  
+  def check_column_for_validity(column)
+    column = remove_zeros_from_check(column)
+  
+    (column.uniq.length == column.length)
+  end
+  
+  def check_row_for_incompleteness(row)
+    row.include? '0'
+  end
+  
+  def remove_zeros_from_check(values)
+    values.reject { |n| n == '0'}
+  end
 end
 
-def check_row_for_validity(row)
-  row = remove_zeros_from_check(row)
 
-  (row.uniq.length == row.length)
-end
-
-def check_column_for_validity(column)
-  column = remove_zeros_from_check(column)
-
-  (column.uniq.length == column.length)
-end
-
-def check_row_for_incompleteness(row)
-  row.include? '0'
-end
-
-def remove_zeros_from_check(values)
-  values.reject { |n| n == '0'}
-end
 
 

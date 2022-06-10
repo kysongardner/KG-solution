@@ -30,6 +30,7 @@ describe "End-to-end test" do
     invalid_fixtures = ["spec/fixtures/invalid_due_to_row_dupe.sudoku",
                         "spec/fixtures/invalid_due_to_column_dupe.sudoku",
                         "spec/fixtures/invalid_due_to_subgroup_dupe.sudoku"]
+                        
 
     invalid_fixtures.each do |fixture|
       it "returns a string saying so" do
