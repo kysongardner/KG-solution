@@ -83,13 +83,13 @@ class Validator
   end
   def check_row_for_validity(row)
     row = remove_zeros_from_check(row)
-    value = row == row.uniq
+    row.uniq == row
   end
   
   def check_column_for_validity(column)
     column = remove_zeros_from_check(column)
   
-    (column.uniq.length == column.length)
+    column.uniq == column
   end
   
   def check_row_for_incompleteness(row)
