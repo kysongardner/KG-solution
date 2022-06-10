@@ -57,22 +57,56 @@ class Validator
     # I could then use one of my methods e.g. 'check_row_for_validity' to validate the subgroup. 
     sub_group_rows = []
     sub_group = []
-    new_rows.each_with_index do |row, i|
-      row.each_with_index do |n_row, n_i|
-         sub_group << n_row if i == 0 && n_i == 0
-         sub_group << n_row if i == 0 && n_i == 1
-         sub_group << n_row if i == 0 && n_i == 2
-         sub_group << n_row if i == 1 && n_i == 0
-         sub_group << n_row if i == 1 && n_i == 1
-         sub_group << n_row if i == 1 && n_i == 2
-         sub_group << n_row if i == 2 && n_i == 0
-         sub_group << n_row if i == 2 && n_i == 1
-         sub_group << n_row if i == 2 && n_i == 2
-         sub_group_rows << sub_group
-         raise [sub_group_rows, sub_group].inspect
-         sub_group = []
-      end
+    new_rows.each_with_index do |rows, i| #row
+      rows.each_with_index do |number, n_i| #col
+        # top left
+         sub_group << number if i == 0 && n_i == 0
+         sub_group << number if i == 0 && n_i == 1
+         sub_group << number if i == 0 && n_i == 2
+         sub_group << number if i == 1 && n_i == 0
+         sub_group << number if i == 1 && n_i == 1
+         sub_group << number if i == 1 && n_i == 2
+         sub_group << number if i == 2 && n_i == 0
+         sub_group << number if i == 2 && n_i == 1
+         sub_group << number if i == 2 && n_i == 2
+
+        #  middle_left
+         sub_group << number if i == 3 && n_i == 0
+         sub_group << number if i == 3 && n_i == 1
+         sub_group << number if i == 3 && n_i == 2
+         sub_group << number if i == 4 && n_i == 0
+         sub_group << number if i == 4 && n_i == 1
+         sub_group << number if i == 4 && n_i == 2
+         sub_group << number if i == 5 && n_i == 0
+         sub_group << number if i == 5 && n_i == 1
+         sub_group << number if i == 5 && n_i == 2
+
+         #  bottom_left
+         sub_group << number if i == 6 && n_i == 0
+         sub_group << number if i == 6 && n_i == 1
+         sub_group << number if i == 6 && n_i == 2
+         sub_group << number if i == 7 && n_i == 0
+         sub_group << number if i == 7 && n_i == 1
+         sub_group << number if i == 7 && n_i == 2
+         sub_group << number if i == 8 && n_i == 0
+         sub_group << number if i == 8 && n_i == 1
+         sub_group << number if i == 8 && n_i == 2
+
+         #  top_middle
+         sub_group << number if i == 0 && n_i == 3 
+         sub_group << number if i == 0 && n_i == 4 
+         sub_group << number if i == 0 && n_i == 5 
+         sub_group << number if i == 1 && n_i == 3 
+         sub_group << number if i == 1 && n_i == 4 
+         sub_group << number if i == 1 && n_i == 5 
+         sub_group << number if i == 2 && n_i == 3 
+         sub_group << number if i == 2 && n_i == 4 
+         sub_group << number if i == 2 && n_i == 5 
+        end
+      sub_group_rows << sub_group
+      sub_group = []
     end
+    raise [sub_group_rows.flatten].inspect
 
 
     sub_group_rows.each do |sub_group|
