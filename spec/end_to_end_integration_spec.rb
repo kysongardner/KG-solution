@@ -1,10 +1,9 @@
 require_relative "../lib/validator"
 
 describe "End-to-end test" do
-
   # Note: these specs are supposed to fail when you first start this exercise.
   # Your job is to make them pass.
-
+  
   context "when the sudoku is valid" do
     context "and it is complete" do
       it "returns a string saying so" do
