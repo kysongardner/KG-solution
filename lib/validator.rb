@@ -102,15 +102,70 @@ class Validator
          sub_group << number if i == 2 && n_i == 3 
          sub_group << number if i == 2 && n_i == 4 
          sub_group << number if i == 2 && n_i == 5 
+
+         #  middle_middle
+         sub_group << number if i == 3 && n_i == 3 
+         sub_group << number if i == 3 && n_i == 4 
+         sub_group << number if i == 3 && n_i == 5 
+         sub_group << number if i == 4 && n_i == 3 
+         sub_group << number if i == 4 && n_i == 4 
+         sub_group << number if i == 4 && n_i == 5 
+         sub_group << number if i == 5 && n_i == 3 
+         sub_group << number if i == 5 && n_i == 4 
+         sub_group << number if i == 5 && n_i == 5 
+
+         #  bottom_middle
+         sub_group << number if i == 6 && n_i == 3 
+         sub_group << number if i == 6 && n_i == 4 
+         sub_group << number if i == 6 && n_i == 5 
+         sub_group << number if i == 7 && n_i == 3 
+         sub_group << number if i == 7 && n_i == 4 
+         sub_group << number if i == 7 && n_i == 5 
+         sub_group << number if i == 8 && n_i == 3 
+         sub_group << number if i == 8 && n_i == 4 
+         sub_group << number if i == 8 && n_i == 5 
+
+         #  top_right
+         sub_group << number if i == 0 && n_i == 6 
+         sub_group << number if i == 0 && n_i == 7 
+         sub_group << number if i == 0 && n_i == 8 
+         sub_group << number if i == 1 && n_i == 6 
+         sub_group << number if i == 1 && n_i == 7 
+         sub_group << number if i == 1 && n_i == 8 
+         sub_group << number if i == 2 && n_i == 6 
+         sub_group << number if i == 2 && n_i == 7 
+         sub_group << number if i == 2 && n_i == 8
+
+         #  middle_right
+         sub_group << number if i == 3 && n_i == 6 
+         sub_group << number if i == 3 && n_i == 7 
+         sub_group << number if i == 3 && n_i == 8 
+         sub_group << number if i == 4 && n_i == 6 
+         sub_group << number if i == 4 && n_i == 7 
+         sub_group << number if i == 4 && n_i == 8 
+         sub_group << number if i == 5 && n_i == 6 
+         sub_group << number if i == 5 && n_i == 7 
+         sub_group << number if i == 5 && n_i == 8
+
+         #  bottom_right
+         sub_group << number if i == 6 && n_i == 6 
+         sub_group << number if i == 6 && n_i == 7 
+         sub_group << number if i == 6 && n_i == 8 
+         sub_group << number if i == 7 && n_i == 6 
+         sub_group << number if i == 7 && n_i == 7 
+         sub_group << number if i == 7 && n_i == 8 
+         sub_group << number if i == 8 && n_i == 6 
+         sub_group << number if i == 8 && n_i == 7 
+         sub_group << number if i == 8 && n_i == 8
         end
       sub_group_rows << sub_group
       sub_group = []
     end
-    raise [sub_group_rows.flatten].inspect
 
+    new_sub_group_rows = sub_group_rows.each_slice(9).to_a
 
-    sub_group_rows.each do |sub_group|
-      @sub_group_valid = check_subgroup_for_validity(sub_group)
+    new_sub_group_rows.each do |sub_group|
+      @sub_group_valid = check_sub_group_for_validity(sub_group)
       break if @sub_group_valid == false
     end
 
