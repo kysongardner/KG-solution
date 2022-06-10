@@ -162,8 +162,10 @@ class Validator
       sub_group = []
     end
 
+    # Separate array into arrays of 9 numbers
     new_sub_group_rows = sub_group_rows.each_slice(9).to_a
 
+    # Check sub groups for validity
     new_sub_group_rows.each do |sub_group|
       @sub_group_valid = check_sub_group_for_validity(sub_group)
       break if @sub_group_valid == false
