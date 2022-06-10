@@ -59,33 +59,33 @@ class Validator
     sub_group = []
     new_rows.each_with_index do |row, i|
       row.each_with_index do |n_row, n_i|
-         subgroup << n_row if i == 0 && n_i == 0
-         subgroup << n_row if i == 0 && n_i == 1
-         subgroup << n_row if i == 0 && n_i == 2
-         subgroup << n_row if i == 1 && n_i == 0
-         subgroup << n_row if i == 1 && n_i == 1
-         subgroup << n_row if i == 1 && n_i == 2
-         subgroup << n_row if i == 2 && n_i == 0
-         subgroup << n_row if i == 2 && n_i == 1
-         subgroup << n_row if i == 2 && n_i == 2
-         sub_group_rows << subgroup
+         sub_group << n_row if i == 0 && n_i == 0
+         sub_group << n_row if i == 0 && n_i == 1
+         sub_group << n_row if i == 0 && n_i == 2
+         sub_group << n_row if i == 1 && n_i == 0
+         sub_group << n_row if i == 1 && n_i == 1
+         sub_group << n_row if i == 1 && n_i == 2
+         sub_group << n_row if i == 2 && n_i == 0
+         sub_group << n_row if i == 2 && n_i == 1
+         sub_group << n_row if i == 2 && n_i == 2
+         sub_group_rows << sub_group
          sub_group = []
       end
     end
 
     raise [sub_group_rows, sub_group].inspect
 
-    subgroup_rows.each do |subgroup|
-      @subgroup_valid = check_subgroup_for_validity(subgroup)
-      break if @subgroup_valid == false
+    sub_group_rows.each do |sub_group|
+      @sub_group_valid = check_subgroup_for_validity(sub_group)
+      break if @sub_group_valid == false
     end
 
     # Determine message to send back to test
-    if @row_valid == false || @column_valid == false || @subgroup_valid == false
+    if @row_valid == false || @column_valid == false || @sub_group_valid == false
       message = 'This sudoku is invalid.'
-    elsif @row_valid == true && @column_valid == true && @subgroup_valid == true && @incomplete == true
+    elsif @row_valid == true && @column_valid == true && @sub_group_valid == true && @incomplete == true
       message = 'This sudoku is valid, but incomplete.'
-    elsif @row_valid == true && @column_valid == true && @subgroup_valid == true && @incomplete == false
+    elsif @row_valid == true && @column_valid == true && @sub_group_valid == true && @incomplete == false
       message = 'This sudoku is valid.'
     end
 
@@ -102,10 +102,10 @@ class Validator
     column.uniq == column
   end
 
-  def check_subgroup_for_validity(subgroup)
-    subgroup = remove_zeros_from_check(subgroup)
+  def check_sub_group_for_validity(sub_group)
+    sub_group = remove_zeros_from_check(sub_group)
   
-    subgroup.uniq == subgroup
+    sub_group.uniq == sub_group
   end
   
   def check_row_for_incompleteness(row)
