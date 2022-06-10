@@ -55,27 +55,34 @@ class Validator
     # I couldn't think of how to do it but I tried to illustrate my train of thought.
     # Basically, get a 2D array and grab the nine elements in a subgroup and put them in a list.
     # I could then use one of my methods e.g. 'check_row_for_validity' to validate the subgroup. 
-    top_left_trio = []
+    sub_group_rows = []
+    sub_group = []
     new_rows.each_with_index do |row, i|
       row.each_with_index do |n_row, n_i|
-         top_left_trio << n_row if i == 0 && n_i == 0
-         top_left_trio << n_row if i == 0 && n_i == 1
-         top_left_trio << n_row if i == 0 && n_i == 2
-         top_left_trio << n_row if i == 1 && n_i == 0
-         top_left_trio << n_row if i == 1 && n_i == 1
-         top_left_trio << n_row if i == 1 && n_i == 2
-         top_left_trio << n_row if i == 2 && n_i == 0
-         top_left_trio << n_row if i == 2 && n_i == 1
-         top_left_trio << n_row if i == 2 && n_i == 2
+         subgroup << n_row if i == 0 && n_i == 0
+         subgroup << n_row if i == 0 && n_i == 1
+         subgroup << n_row if i == 0 && n_i == 2
+         subgroup << n_row if i == 1 && n_i == 0
+         subgroup << n_row if i == 1 && n_i == 1
+         subgroup << n_row if i == 1 && n_i == 2
+         subgroup << n_row if i == 2 && n_i == 0
+         subgroup << n_row if i == 2 && n_i == 1
+         subgroup << n_row if i == 2 && n_i == 2
+         sub_group_rows << subgroup
       end
     end
 
+    subgroup_rows.each do |subgroup|
+      @subgroup_valid = check_subgroup_for_validity(subgroup)
+      break if @subgroup_valid == false
+    end
+
     # Determine message to send back to test
-    if @row_valid == false || @column_valid == false
+    if @row_valid == false || @column_valid == false || @subgroup_valid == false
       message = 'This sudoku is invalid.'
-    elsif @row_valid == true && @column_valid == true && @incomplete == true
+    elsif @row_valid == true && @column_valid == true && @subgroup_valid == true && @incomplete == true
       message = 'This sudoku is valid, but incomplete.'
-    elsif @row_valid == true && @column_valid == true && @incomplete == false
+    elsif @row_valid == true && @column_valid == true && @subgroup_valid == true && @incomplete == false
       message = 'This sudoku is valid.'
     end
 
@@ -90,6 +97,12 @@ class Validator
     column = remove_zeros_from_check(column)
   
     column.uniq == column
+  end
+
+  def check_subgroup_for_validity(subgroup)
+    subgroup = remove_zeros_from_check(subgroup)
+  
+    subgroup.uniq == subgroup
   end
   
   def check_row_for_incompleteness(row)
